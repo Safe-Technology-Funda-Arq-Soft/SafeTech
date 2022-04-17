@@ -61,6 +61,4 @@ public class User extends AuditModel {
     @NotBlank
     @Size(max=10)
     private String birthday;
-
-
 }

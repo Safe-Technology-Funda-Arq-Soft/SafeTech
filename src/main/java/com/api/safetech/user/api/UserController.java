@@ -42,11 +42,11 @@ public class UserController {
         return userMapper.toResource(userService.getByEmail(email));
     }
 
-//    @Operation(summary = "Get User by Name", description = "Get User by Name")
-//    @GetMapping("{firstName}/{lastName}")
-//    public UserResource getUserByFirstNameAndLastName(@PathVariable String firstName, @PathVariable String lastName){
-//
-//    }
+    @Operation(summary = "Get User by Complete Name", description = "Get User by Complete Name")
+    @GetMapping("firstName/{firstName}/lastName/{lastName}")
+    public List<UserResource> getUserByFirstNameAndLastName(@PathVariable String firstName, @PathVariable String lastName){
+        return userMapper.toResource(userService.getByFirstNameAndLastName(firstName, lastName));
+    }
 
     @Operation(summary = "Create New User", description = "Create New User")
     @PostMapping
@@ -65,7 +65,6 @@ public class UserController {
     public void deleteUser(@PathVariable Long userId){
         userService.delete(userId);
     }
-
 
 
 }

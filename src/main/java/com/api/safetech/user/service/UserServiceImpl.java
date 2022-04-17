@@ -37,10 +37,10 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByEmail(email);
     }
 
-//    @Override
-//    public User getByAllFirstNameAndLastName(String firstName, String lastName){
-//        return userRepository.findAllByFirstNameAndLastName(firstName, lastName);
-//    }
+    @Override
+    public List<User> getByFirstNameAndLastName(String firstName, String lastName){
+        return userRepository.findByFirstNameAndLastNameContaining(firstName, lastName);
+    }
 
     @Override
     public User create(User request){
