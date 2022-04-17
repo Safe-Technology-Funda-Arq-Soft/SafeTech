@@ -12,5 +12,6 @@ public interface TechnicalService {
     Technical update(Long technicalId, Technical request);
     ResponseEntity<?> delete(Long technicalId);
     Technical getByEmail(String email);
-    Technical getByFirstName(String firstName);
+    List<Technical> getByFirstName(String firstName);
+    List<Technical> getByLastName(String lastName);
 }

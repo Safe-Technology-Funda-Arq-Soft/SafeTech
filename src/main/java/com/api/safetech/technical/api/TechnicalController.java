@@ -69,8 +69,15 @@ public class TechnicalController {
 
     @Operation(summary = "Get Technicals by First Name", description = "Get Technicals by First Name")
     @GetMapping("firstName/{firstName}")
-    public TechnicalResource getByFirstName(@PathVariable String firstName)
+    public List<TechnicalResource> getByFirstName(@PathVariable String firstName)
     {
         return mapper.toResource(technicalService.getByFirstName(firstName));
+    }
+
+    @Operation(summary = "Get Technicals by Last Name", description = "Get Technicals by Last Name")
+    @GetMapping("lastName/{lastName}")
+    public List<TechnicalResource> getByLastName(@PathVariable String lastName)
+    {
+        return mapper.toResource(technicalService.getByLastName(lastName));
     }
 }

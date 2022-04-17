@@ -68,7 +68,12 @@ public class TechnicalServiceImpl implements TechnicalService {
     }
 
     @Override
-    public Technical getByFirstName(String firstName) {
+    public List<Technical> getByFirstName(String firstName) {
         return technicalRepository.findByFirstName(firstName);
+    }
+
+    @Override
+    public List<Technical> getByLastName(String lastName) {
+        return technicalRepository.findByLastName(lastName);
     }
 }
