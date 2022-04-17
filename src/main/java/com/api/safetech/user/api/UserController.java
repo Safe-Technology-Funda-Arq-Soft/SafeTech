@@ -50,14 +50,14 @@ public class UserController {
 
     @Operation(summary = "Create New User", description = "Create New User")
     @PostMapping
-    public UserResource createUser(@RequestBody CreateUserResource resource){
-        return userMapper.toResource(userService.create(userMapper.toModel(resource)));
+    public UserResource createUser(@RequestBody CreateUserResource model){
+        return userMapper.toResource(userService.create(userMapper.toModel(model)));
     }
 
     @Operation(summary = "Update User", description = "Update User")
     @PutMapping("{userId}")
-    public UserResource updateUser(@PathVariable Long userId, @RequestBody UpdateUserResource resource){
-        return userMapper.toResource(userService.update(userId, userMapper.toModel(resource)));
+    public UserResource updateUser(@PathVariable Long userId, @RequestBody UpdateUserResource model){
+        return userMapper.toResource(userService.update(userId, userMapper.toModel(model)));
     }
 
     @Operation(summary = "Delete User", description = "Delete User")
