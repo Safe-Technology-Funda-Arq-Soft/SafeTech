@@ -36,9 +36,9 @@ public class ApplianceServiceImpl implements ApplianceService {
 
         try{
             return applianceRepository.findById(applianceId)
-                    .map(user->
+                    .map(appliance->
                             applianceRepository.save(
-                                    user.withName(request.getName())
+                                    appliance.withName(request.getName())
                                             .withCost(request.getCost())
                             )).orElseThrow(()-> new ResourceNotFoundException(ENTITY, applianceId));
         }
@@ -49,16 +49,16 @@ public class ApplianceServiceImpl implements ApplianceService {
 
 
     @Override
-    public Appliance delete(Long userId){
-        return applianceRepository.findById(userId)
-                .map(user-> {
-                    applianceRepository.delete(user);
-                    return user;
-                }).orElseThrow(()-> new ResourceNotFoundException(ENTITY, userId));
+    public Appliance delete(Long applianceId){
+        return applianceRepository.findById(applianceId)
+                .map(appliance-> {
+                    applianceRepository.delete(appliance);
+                    return appliance;
+                }).orElseThrow(()-> new ResourceNotFoundException(ENTITY, applianceId));
     }
     @Override
-    public List<Appliance> getByName(String Name) {
-        return applianceRepository.findByName(Name);
+    public List<Appliance> getByName(String name) {
+        return applianceRepository.findByName(name);
     }
 
 }

@@ -8,6 +8,6 @@ import lombok.Setter;
 @Setter
 public class ApplianceResource {
     private Long id;
-    private String appliance;
-    private Float unitReparationCost;
+    private String name;
+    private Float cost;
 }

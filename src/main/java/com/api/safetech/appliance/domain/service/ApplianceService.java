@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ApplianceService {
     List<Appliance>getAll();
-    Appliance getById(Long ApplianceId);
+    Appliance getById(Long applianceId);
     Appliance create(Appliance appliance);
     Appliance update(Long applianceId, Appliance appliance);
 

@@ -25,7 +25,7 @@ public class ApplianceController {
     @Autowired
     private ApplianceMapper applianceMapper;
 
-    @Operation(summary = "Get All Users", description = "Get All Users")
+    @Operation(summary = "Get All Appliances", description = "Get All Appliances")
     @GetMapping
     public List<ApplianceResource> getAllAppliance() { return applianceMapper.toResource(applianceService.getAll());}
 
@@ -36,7 +36,7 @@ public class ApplianceController {
     }
 
     @Operation(summary = "Get Appliance by Name", description = "Get Appliance by Name")
-    @GetMapping("{name}")
+    @GetMapping("/name/{name}")
     public List<ApplianceResource> getByName(@PathVariable String name){
         return applianceMapper.toResource(applianceService.getByName(name));
     }
@@ -54,4 +54,5 @@ public class ApplianceController {
     @Operation(summary = "Delete Appliance", description = "Delete Appliance")
     @DeleteMapping("{applianceId}")
     public void deleteAppliance(@PathVariable Long applianceId){ applianceService.delete(applianceId);}
+
 }

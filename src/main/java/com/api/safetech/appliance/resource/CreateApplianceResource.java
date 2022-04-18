@@ -12,9 +12,8 @@ public class CreateApplianceResource {
 
     @NotNull
     @NotBlank
-    private String appliance;
+    private String name;
 
     @NotNull
-    @NotBlank
-    private Float unitReparationCost;
+    private Float cost;
 }

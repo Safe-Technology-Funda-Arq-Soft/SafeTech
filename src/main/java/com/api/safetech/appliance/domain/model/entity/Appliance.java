@@ -27,7 +27,6 @@ public class Appliance extends AuditModel {
     private String name;
 
     @NotNull
-    @NotBlank
     private  Float cost;
 
 
