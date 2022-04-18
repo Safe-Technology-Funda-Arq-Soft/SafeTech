@@ -10,4 +10,10 @@ public class MappingConfiguration {
     public TechnicalMapper technicalMapper() {
         return new TechnicalMapper();
     }
+
+    @Bean
+    public ScheduleMapper scheduleMapper()
+    {
+        return new ScheduleMapper();
+    }
 }
