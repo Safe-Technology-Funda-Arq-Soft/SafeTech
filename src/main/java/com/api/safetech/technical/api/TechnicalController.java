@@ -1,8 +1,18 @@
 package com.api.safetech.technical.api;
 
+import com.api.safetech.shared.exception.ResourceNotFoundException;
+import com.api.safetech.technical.domain.model.entity.Schedule;
+import com.api.safetech.technical.domain.model.entity.Technical;
+import com.api.safetech.technical.domain.model.entity.TechnicalSchedule;
+import com.api.safetech.technical.domain.model.entity.TechnicalScheduleFK;
+import com.api.safetech.technical.domain.persistence.ScheduleRepository;
+import com.api.safetech.technical.domain.persistence.TechnicalScheduleRepository;
+import com.api.safetech.technical.domain.service.ScheduleService;
 import com.api.safetech.technical.domain.service.TechnicalService;
+import com.api.safetech.technical.mapping.ScheduleMapper;
 import com.api.safetech.technical.mapping.TechnicalMapper;
 import com.api.safetech.technical.resource.CreateTechnicalResource;
+import com.api.safetech.technical.resource.ScheduleResource;
 import com.api.safetech.technical.resource.TechnicalResource;
 import com.api.safetech.technical.resource.UpdateTechnicalResource;
 import io.swagger.v3.oas.annotations.Operation;
@@ -23,7 +33,21 @@ public class TechnicalController {
     private TechnicalService technicalService;
 
     @Autowired
+    private ScheduleService scheduleService;
+
+    @Autowired
+    private ScheduleRepository scheduleRepository;
+
+    @Autowired
+    private TechnicalScheduleRepository technicalScheduleRepository;
+
+    @Autowired
+    private ScheduleMapper scheduleMapper;
+
+    @Autowired
     private TechnicalMapper mapper;
+
+
 
     @Operation(summary = "Get Technicals", description = "Get All Technicals")
     @GetMapping
@@ -80,4 +104,34 @@ public class TechnicalController {
     {
         return mapper.toResource(technicalService.getByLastName(lastName));
     }
+
+    //SHCEDULE - TECHNICAL===================================================>
+    @Operation(summary = "Get Technicals by Id", description = "Get Technical by Id")
+    @GetMapping("{technicalId}/schedules")
+    public List<ScheduleResource> getSchedulesByTechnicalId(@PathVariable Long technicalId)
+    {
+        return scheduleMapper.toResource(scheduleRepository.findByTechnicalId(technicalId));
+    }
+
+    @Operation(summary = "Create schedule by Technical", description = "Create schedule by Technical")
+    @PostMapping("{scheduleId}/{technicalId}")
+    public TechnicalSchedule createSchedule(@PathVariable Long scheduleId, @PathVariable Long technicalId)
+    {
+        try {
+            Technical technical = technicalService.getById(technicalId);
+            Schedule schedule = scheduleService.getById(scheduleId);
+
+            if (schedule == null || technical == null) {
+                throw new ResourceNotFoundException("Schedule or technical not found");
+            }
+            TechnicalScheduleFK newFK = new TechnicalScheduleFK(technicalId, scheduleId);
+            TechnicalSchedule technicalSchedule = new TechnicalSchedule(newFK, technical, schedule);
+            technicalScheduleRepository.save(technicalSchedule);
+            return technicalSchedule;
+        }catch (Exception e) {
+            throw new ResourceNotFoundException("Schedule or technical not found");
+        }
+
+    }
+
 }
