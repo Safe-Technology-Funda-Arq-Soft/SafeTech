@@ -73,4 +73,17 @@ public class Technical extends AuditModel {
     @OneToMany(mappedBy = "technical")
     private List<TechnicalSchedule> technicalSchedules;
 
+    public Technical(Long id, String firstName, String lastName, String dni, String email, String password, String address, String phone, String birthday, String aboutMe) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dni = dni;
+        this.email = email;
+        this.password = password;
+        this.address = address;
+        this.phone = phone;
+        this.birthday = birthday;
+        this.aboutMe = aboutMe;
+    }
+
 }
