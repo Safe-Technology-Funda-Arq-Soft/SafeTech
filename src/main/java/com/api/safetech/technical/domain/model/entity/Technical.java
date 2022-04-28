@@ -1,5 +1,6 @@
 package com.api.safetech.technical.domain.model.entity;
 
+import com.api.safetech.appliance.domain.model.entity.ApplianceTechnical;
 import com.api.safetech.shared.domain.model.AuditModel;
 import lombok.*;
 
@@ -72,6 +73,9 @@ public class Technical extends AuditModel {
 
     @OneToMany(mappedBy = "technical")
     private List<TechnicalSchedule> technicalSchedules;
+
+    @OneToMany(mappedBy = "technical")
+    private List<ApplianceTechnical> applianceTechnicals;
 
     public Technical(Long id, String firstName, String lastName, String dni, String email, String password, String address, String phone, String birthday, String aboutMe) {
         this.id = id;

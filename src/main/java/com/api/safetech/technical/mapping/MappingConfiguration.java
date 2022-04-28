@@ -1,5 +1,6 @@
 package com.api.safetech.technical.mapping;
 
+import com.api.safetech.appliance.mapping.ApplianceMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,4 +17,10 @@ public class MappingConfiguration {
     {
         return new ScheduleMapper();
     }
+
+//    @Bean
+//    public ApplianceMapper applianceMapper()
+//    {
+//        return new ApplianceMapper();
+//    }
 }

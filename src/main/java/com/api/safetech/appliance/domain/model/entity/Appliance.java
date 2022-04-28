@@ -6,6 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 
 @Getter
@@ -14,8 +15,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @With
 @Entity
-
-
+@Table(name="appliance")
 public class Appliance extends AuditModel {
 
     @Id
@@ -29,5 +29,7 @@ public class Appliance extends AuditModel {
     @NotNull
     private  Float cost;
 
+    @OneToMany(mappedBy = "appliance")
+    private List<ApplianceTechnical> applianceTechnicals;
 
 }

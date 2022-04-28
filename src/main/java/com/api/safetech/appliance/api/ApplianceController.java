@@ -1,11 +1,16 @@
 package com.api.safetech.appliance.api;
 
 
+import com.api.safetech.appliance.domain.persistence.ApplianceRepository;
 import com.api.safetech.appliance.domain.service.ApplianceService;
 import com.api.safetech.appliance.mapping.ApplianceMapper;
 import com.api.safetech.appliance.resource.ApplianceResource;
 import com.api.safetech.appliance.resource.CreateApplianceResource;
 import com.api.safetech.appliance.resource.UpdateApplianceResource;
+import com.api.safetech.technical.domain.persistence.TechnicalRepository;
+import com.api.safetech.technical.domain.service.TechnicalService;
+import com.api.safetech.technical.mapping.TechnicalMapper;
+import com.api.safetech.technical.resource.TechnicalResource;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +29,12 @@ public class ApplianceController {
 
     @Autowired
     private ApplianceMapper applianceMapper;
+
+    @Autowired
+    private TechnicalRepository technicalRepository;
+
+    @Autowired
+    private TechnicalMapper technicalMapper;
 
     @Operation(summary = "Get All Appliances", description = "Get All Appliances")
     @GetMapping
@@ -54,5 +65,14 @@ public class ApplianceController {
     @Operation(summary = "Delete Appliance", description = "Delete Appliance")
     @DeleteMapping("{applianceId}")
     public void deleteAppliance(@PathVariable Long applianceId){ applianceService.delete(applianceId);}
+
+
+    //---------------------------------------------------------------------------------------------------------------------
+    @Operation(summary = "Get Appliances by Id From Technical", description = "Get Appliances by Id From Technical")
+    @GetMapping("technicalId/{applianceId}")
+    public List<TechnicalResource> getAppliancesByTechnicalId(@PathVariable Long applianceId)
+    {
+        return technicalMapper.toResource(technicalRepository.findByApplianceTechnicals(applianceId));
+    }
 
 }
