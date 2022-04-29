@@ -1,5 +1,13 @@
 package com.api.safetech.technical.api;
 
+import com.api.safetech.appliance.domain.model.entity.Appliance;
+import com.api.safetech.appliance.domain.model.entity.ApplianceTechnical;
+import com.api.safetech.appliance.domain.model.entity.ApplianceTechnicalFK;
+import com.api.safetech.appliance.domain.persistence.ApplianceRepository;
+import com.api.safetech.appliance.domain.persistence.ApplianceTechnicalRepository;
+import com.api.safetech.appliance.domain.service.ApplianceService;
+import com.api.safetech.appliance.mapping.ApplianceMapper;
+import com.api.safetech.appliance.resource.ApplianceResource;
 import com.api.safetech.shared.exception.ResourceNotFoundException;
 import com.api.safetech.technical.domain.model.entity.Schedule;
 import com.api.safetech.technical.domain.model.entity.Technical;
@@ -36,16 +44,28 @@ public class TechnicalController {
     private ScheduleService scheduleService;
 
     @Autowired
+    private ApplianceService applianceService;
+
+    @Autowired
     private ScheduleRepository scheduleRepository;
 
     @Autowired
     private TechnicalScheduleRepository technicalScheduleRepository;
 
     @Autowired
+    private ApplianceRepository applianceRepository;
+
+    @Autowired
+    private ApplianceTechnicalRepository applianceTechnicalRepository;
+
+    @Autowired
     private ScheduleMapper scheduleMapper;
 
     @Autowired
     private TechnicalMapper mapper;
+
+    @Autowired
+    private ApplianceMapper applianceMapper;
 
 
 
@@ -131,7 +151,34 @@ public class TechnicalController {
         }catch (Exception e) {
             throw new ResourceNotFoundException("Schedule or technical not found");
         }
+    }
 
+    //APPLIANCE - TECHNICAL===================================================>
+    @Operation(summary = "Get Appliances by Id From Technical", description = "Get Appliances by Id From Technical")
+    @GetMapping("/appliances/{technicalId}")
+    public List<ApplianceResource> getAppliancesByTechnicalId(@PathVariable Long technicalId)
+    {
+        return applianceMapper.toResource(applianceRepository.findByTechnicalIdFromAppliances(technicalId));
+    }
+
+    @Operation(summary = "Create appliance by Technical", description = "Create appliance by Technical")
+    @PostMapping("/appliance/{technicalId}/{applianceId}")
+    public ApplianceTechnical createAppliance(@PathVariable Long applianceId, @PathVariable Long technicalId)
+    {
+        try {
+            Technical technical = technicalService.getById(technicalId);
+            Appliance appliance = applianceService.getById(applianceId);
+
+            if (appliance == null || technical == null) {
+                throw new ResourceNotFoundException("Appliance or technical not found");
+            }
+            ApplianceTechnicalFK newFK = new ApplianceTechnicalFK(technicalId, applianceId);
+            ApplianceTechnical applianceTechnical = new ApplianceTechnical(newFK, technical, appliance);
+            applianceTechnicalRepository.save(applianceTechnical);
+            return applianceTechnical;
+        } catch (Exception e) {
+            throw new ResourceNotFoundException("Schedule or technical not found");
+        }
     }
 
 }
