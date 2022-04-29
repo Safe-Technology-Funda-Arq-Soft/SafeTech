@@ -14,9 +14,9 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @With
 @Entity
-@Table(name="commentarys")
+@Table(name="comments")
 
-public class Commentary {
+public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,7 +24,7 @@ public class Commentary {
     @NotNull
     @NotBlank
     @Size(max = 250)
-    private String commentary;
+    private String comment;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
 

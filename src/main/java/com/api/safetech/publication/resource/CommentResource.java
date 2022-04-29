@@ -5,9 +5,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CommentaryResource {
+public class CommentResource {
     private Long id;
-    private String commentary;
+    private String comment;
     private PublicationResource publication;
     private UserResource user;
 }
