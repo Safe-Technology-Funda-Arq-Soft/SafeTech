@@ -3,6 +3,9 @@ package com.api.safetech.technical.resource;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
+
 @Getter
 @Setter
 public class TechnicalResource {
@@ -15,6 +18,6 @@ public class TechnicalResource {
     private String password;
     private String address;
     private String phone;
-    private String birthday;
+    private Date birthday;
     private String aboutMe;
 }

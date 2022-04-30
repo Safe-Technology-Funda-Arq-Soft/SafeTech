@@ -9,6 +9,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.sql.Date;
 import java.util.List;
 
 @Getter
@@ -62,9 +63,7 @@ public class Technical extends AuditModel {
     private String phone;
 
     @NotNull
-    @NotBlank
-    @Size(max = 10)
-    private String birthday;
+    private Date birthday;
 
     @NotNull
     @NotBlank
@@ -77,7 +76,8 @@ public class Technical extends AuditModel {
     @OneToMany(mappedBy = "technical")
     private List<ApplianceTechnical> applianceTechnicals;
 
-    public Technical(Long id, String firstName, String lastName, String dni, String email, String password, String address, String phone, String birthday, String aboutMe) {
+    public Technical(Long id, String firstName, String lastName, String dni, String email, String password, String address, String phone, Date birthday, String aboutMe) {
+
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

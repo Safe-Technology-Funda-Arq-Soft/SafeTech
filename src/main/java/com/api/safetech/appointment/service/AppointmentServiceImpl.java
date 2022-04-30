@@ -69,7 +69,7 @@ public class AppointmentServiceImpl implements AppointmentService {
                         appointment.withProblemDescription(request.getProblemDescription())
                                 .withScheduledAt(request.getScheduledAt())
                                 .withAddress(request.getAddress())
-                                .withIsCancelled(request.getIsCancelled())
+                                .withStatus(request.getStatus())
                 )).orElseThrow(()-> new ResourceNotFoundException(ENTITY, appointmentId));
     }
 

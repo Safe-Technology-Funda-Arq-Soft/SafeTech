@@ -7,6 +7,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -44,7 +45,5 @@ public class CreateUserResource {
     private String phone;
 
     @NotNull
-    @NotBlank
-    @Size(max=10)
-    private String birthday;
+    private Date birthday;
 }
