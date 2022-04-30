@@ -5,6 +5,8 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
+
 
 @Getter
 @Setter
@@ -17,5 +19,5 @@ public class UserResource {
     private String password;
     private String address;
     private String phone;
-    private String birthday;
+    private Date birthday;
 }
