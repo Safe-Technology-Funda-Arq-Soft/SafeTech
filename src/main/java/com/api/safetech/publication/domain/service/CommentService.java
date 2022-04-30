@@ -7,7 +7,7 @@ import java.util.List;
 public interface CommentService {
     List<Comment> getAll();
     Comment getById(Long commentId);
-    Comment create(Comment comment, Long publicationId);
+    Comment create(Comment comment, Long publicationId, Long userId);
     Comment update(Long commentId, Comment request);
     ResponseEntity<?> delete(Long commentId);
     List<Comment> getByPublicationId(Long publicationId);

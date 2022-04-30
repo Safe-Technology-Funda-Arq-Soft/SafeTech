@@ -6,6 +6,8 @@ import com.api.safetech.publication.domain.service.CommentService;
 import com.api.safetech.shared.exception.ResourceNotFoundException;
 import com.api.safetech.publication.domain.model.entity.Publication;
 import com.api.safetech.publication.domain.persistence.PublicationRepository;
+import com.api.safetech.user.domain.model.entity.User;
+import com.api.safetech.user.domain.persistence.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,9 @@ public class CommentServiceImpl implements CommentService {
     @Autowired
     private PublicationRepository publicationRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Override
     public List<Comment> getAll() {
         return commentRepository.findAll();
@@ -34,10 +39,13 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Comment create(Comment comment, Long publicationId) {
+    public Comment create(Comment comment, Long publicationId, Long userId) {
         Publication publication = publicationRepository.findById(publicationId)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found with Id" + publicationId));
+                .orElseThrow(() -> new ResourceNotFoundException("Publication not found with Id" + publicationId));
+        User user = userRepository.findById(userId).
+                orElseThrow(()-> new ResourceNotFoundException("User not found with Id" + userId));
         comment.setPublication(publication);
+        comment.setUser(user);
         return commentRepository.save(comment);
     }
 

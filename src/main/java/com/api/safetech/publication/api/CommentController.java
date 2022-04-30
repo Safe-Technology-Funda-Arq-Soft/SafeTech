@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-@Tag(name = "Commentary")
+@Tag(name = "Comment")
 @RestController
-@RequestMapping("/api/v1/comment")
+@RequestMapping("/api/v1/comments")
 @CrossOrigin
 public class CommentController {
     @Autowired
@@ -39,14 +39,14 @@ public class CommentController {
     }
 
     @Operation(summary = "Create Comment", description = "Create Comment")
-    @PostMapping("publications/{publicationId}")
-    public CommentResource createComment(@PathVariable Long publicationId, @Valid @RequestBody CreateCommentResource request)
+    @PostMapping("publications/{publicationId}/{userId}")
+    public CommentResource createComment(@Valid @RequestBody CreateCommentResource request, @PathVariable Long publicationId, @PathVariable Long userId)
     {
-        return mapper.toResource(commentService.create(mapper.toModel(request), publicationId));
+        return mapper.toResource(commentService.create(mapper.toModel(request), publicationId, userId));
     }
 
     @Operation(summary = "Update Comment", description = "Update Comment by Id ")
-    @PutMapping("{commentaryId}")
+    @PutMapping("{commentId}")
     public CommentResource updateComment(@PathVariable Long commentId, @Valid @RequestBody UpdateCommentResource request)
     {
         return mapper.toResource(commentService.update(commentId, mapper.toModel(request)));

@@ -14,6 +14,6 @@ public class UpdateCommentResource {
     @NotNull
     @NotBlank
     @Size(max = 250)
-    private String commentary;
+    private String comment;
 
 }

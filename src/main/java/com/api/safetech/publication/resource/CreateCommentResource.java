@@ -13,5 +13,4 @@ public class CreateCommentResource {
     @NotBlank
     @Size(max = 250)
     private String comment;
-
 }

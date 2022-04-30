@@ -27,7 +27,6 @@ public class Comment {
     private String comment;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-
     @JoinColumn(name = "publication_id", nullable = false)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Publication publication;
