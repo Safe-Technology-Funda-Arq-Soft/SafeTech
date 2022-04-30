@@ -11,6 +11,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -30,15 +31,14 @@ public class Appointment extends AuditModel {
     private String problemDescription;
 
     @NotNull
-    @NotBlank
-    private String scheduledAt;
+    private Date scheduledAt;
 
     @NotNull
     @NotBlank
     private String address;
 
-    @NotNull
-    private Boolean isCancelled;
+    @Enumerated(EnumType.ORDINAL)
+    private Status status;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
