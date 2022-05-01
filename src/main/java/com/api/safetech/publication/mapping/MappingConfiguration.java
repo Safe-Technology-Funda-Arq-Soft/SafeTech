@@ -14,4 +14,6 @@ public class MappingConfiguration {
     public CommentMapper commentMapper() {
         return new CommentMapper();
     }
+    @Bean
+    public TagMapper tagMapper() { return new TagMapper();}
 }
